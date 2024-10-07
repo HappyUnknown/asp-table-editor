@@ -15,5 +15,22 @@ namespace ASPTableEditor.Controllers
             TempData["Message"] = "Button was clicked!";
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult DisplayFilePath(IFormFile file)
+        {
+            if (file != null)
+            {
+                // Get the file name (since full path is not accessible)
+                ViewBag.FileName = file.FileName;
+            }
+            else
+            {
+                ViewBag.FileName = "No file selected.";
+            }
+
+            TempData["Message"] = ViewBag.FileName;
+            return RedirectToAction("Index");
+        }
     }
 }
