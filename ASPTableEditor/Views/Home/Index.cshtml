@@ -3,6 +3,66 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    ViewData["Title"] = "Upload File Example";
+}
+
+<h2>Select a File</h2>
+
+<div>
+    <input type="file" id="fileInput" />
+    <button id="uploadButton" class="btn btn-primary">Upload</button>
+</div>
+<div id="fileContent" style="margin-top: 20px;">
+    <h4>File Content:</h4>
+    <pre id="fileContentDisplay"></pre> <!-- Use <pre> to preserve formatting -->
+</div>
+
+<div id="fileInfo" style="margin-top: 20px;">
+    <p>File Name: <span id="fileName"></span></p>
+    <p>File Size: <span id="fileSize"></span></p>
+    <p>File Type: <span id="fileType"></span></p>
+</div>
+
+<script>
+    document.getElementById('fileInput').addEventListener('change', function (event) {
+        var file = event.target.files[0];
+        if (file) {
+            // Display file properties
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = file.size;
+            document.getElementById('fileType').textContent = file.type;
+        }
+    });
+
+    document.getElementById('uploadButton').addEventListener('click', function () {
+        var file = document.getElementById('fileInput').files[0];
+        if (file) {
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/Home/UploadFile', { // Adjust the URL as needed
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert(data.message);
+
+                    // Display file content if available
+                    if (data.fileContent) {
+                        document.getElementById('fileContentDisplay').textContent = data.fileContent; // Update to show the file content
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        } else {
+            alert('Please select a file first.');
+        }
+    });</script>
+
 <h1>Index</h1>
 
 <form method="post" asp-controller="Home" asp-action="ImportTable">
