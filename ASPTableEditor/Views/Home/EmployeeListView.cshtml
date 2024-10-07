@@ -18,6 +18,12 @@
                 <td>
                     <button onclick="location.href='@Url.Action("EmployeeItemView", "Home")?id=@employee.Id'" class="btn btn-primary">View</button>
                 </td>
+                <td>
+                    <button onclick="location.href='@Url.Action("EmployeeItemEdit", "Home")?id=@employee.Id'" class="btn btn-primary">Edit</button>
+                </td>
+                <td>
+                    <button onclick="location.href='@Url.Action("EmployeeItemRemove", "Home")?id=@employee.Id'" class="btn btn-primary">Remove</button>
+                </td>
             </tr>
         }
     </tbody>

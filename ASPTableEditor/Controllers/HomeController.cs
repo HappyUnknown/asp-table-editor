@@ -35,6 +35,37 @@ namespace ASPTableEditor.Controllers
 
             return View(employee); // Create a corresponding ViewEmployee view
         }
+        public ActionResult EmployeeItemEdit(int id)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");
+
+            var employee = new DatabaseContext(optionsBuilder.Options).Employees
+                .FirstOrDefault(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee); // Create a corresponding ViewEmployee view
+        }
+
+        public ActionResult EmployeeItemRemove(int id)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");
+
+            var employee = new DatabaseContext(optionsBuilder.Options).Employees
+                .FirstOrDefault(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee); // Create a corresponding ViewEmployee view
+        }
 
         [HttpPost]
         public IActionResult ImportTable()
