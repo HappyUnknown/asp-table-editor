@@ -2,6 +2,7 @@
 using ASPTableEditor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace ASPTableEditor.Controllers
 {
@@ -209,13 +210,14 @@ namespace ASPTableEditor.Controllers
                 var fileSize = file.Length;
                 var fileType = file.ContentType;
 
-                // Read the file content
-                string content;
-                using (var reader = new StreamReader(file.OpenReadStream()))
-                {
-                    content = await reader.ReadToEndAsync();
-                }
-
+                List<Employee> content =
+                [
+                    // Read the file content
+                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
+                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
+                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
+                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
+                ];
                 // Initialize DbContextOptionsBuilder for the DatabaseContext
                 var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
                 optionsBuilder.UseSqlite("Data Source=app.db");  // Use your connection string
@@ -234,6 +236,8 @@ namespace ASPTableEditor.Controllers
                     //    Phone = "+380808080808",
                     //    Salary = 8080
                     //});
+
+                    db.Employees.AddRange(content);
 
                     // Save changes to the database
                     await db.SaveChangesAsync();

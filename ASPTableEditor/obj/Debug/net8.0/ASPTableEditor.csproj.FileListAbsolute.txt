@@ -262,3 +262,4 @@ C:\Users\Computing Machine\source\repos\ASPTableEditor\ASPTableEditor\bin\Debug\
 C:\Users\Computing Machine\source\repos\ASPTableEditor\ASPTableEditor\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Computing Machine\source\repos\ASPTableEditor\ASPTableEditor\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Computing Machine\source\repos\ASPTableEditor\ASPTableEditor\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\Computing Machine\source\repos\ASPTableEditor\ASPTableEditor\bin\Debug\net8.0\CsvHelper.dll
