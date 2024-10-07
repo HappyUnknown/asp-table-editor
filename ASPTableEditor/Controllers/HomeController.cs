@@ -35,7 +35,8 @@ namespace ASPTableEditor.Controllers
 
             return View(employee); // Create a corresponding ViewEmployee view
         }
-        public ActionResult EmployeeItemEdit(int id)
+        [HttpGet]
+        public IActionResult EmployeeItemEdit(int id)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite("Data Source=app.db");
@@ -50,8 +51,43 @@ namespace ASPTableEditor.Controllers
 
             return View(employee); // Create a corresponding ViewEmployee view
         }
+        [HttpPost]
+        public IActionResult EmployeeItemEdit(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(employee); // Return the view with validation errors
+            }
 
-        public ActionResult EmployeeItemRemove(int id)
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");
+
+            using (var context = new DatabaseContext(optionsBuilder.Options))
+            {
+                // Find the existing employee record
+                var existingEmployee = context.Employees.FirstOrDefault(e => e.Id == employee.Id);
+                if (existingEmployee == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the existing employee's properties
+                existingEmployee.Id = employee.Id;
+                existingEmployee.Name = employee.Name;
+                existingEmployee.BirthDate = employee.BirthDate;
+                existingEmployee.IsMarried = employee.IsMarried;
+                existingEmployee.Phone = employee.Phone;
+                existingEmployee.Salary = employee.Salary;
+
+                // Save changes to the database
+                context.SaveChanges();
+            }
+
+            // Redirect to the employee list view or any other relevant page
+            return RedirectToAction("EmployeeListView");
+        }
+
+        public IActionResult EmployeeItemRemove(int id)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite("Data Source=app.db");
