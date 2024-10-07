@@ -1,12 +1,75 @@
-﻿@*
+﻿@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
-<form method="post" action="/Home/Index">
-    <button type="submit" class="btn btn-primary">Employees</button>
-</form>
-
 @using ASPTableEditor.Models
 @model Employee
+
+<h1>Remove</h1>
+
+<form method="post" action="/Home/Index">
+    <button type="submit" class="btn btn-primary">Home</button>
+</form>
+
+<form method="post" asp-action="EmployeeItemEdit" asp-route-id="@Model.Id">
+    <table>
+        <tr>
+            <td>
+                <label id="lblEmployeeId">Id</label>
+            </td>
+            <td>
+                <input id="tbEmployeeId" type="text" asp-for="Id" value="@Model.Id" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label id="lblEmployeeName">Name</label>
+            </td>
+            <td>
+                <input id="tbEmployeeName" type="text" asp-for="Name" value="@Model.Name" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label id="lblEmployeeBirthDate">BirthDate</label>
+            </td>
+            <td>
+                <input id="tbEmployeeBirthDate" type="text" asp-for="BirthDate" value="@Model.BirthDate" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label id="lblEmployeeIsMarried">IsMarried</label>
+            </td>
+            <td>
+                <input id="tbEmployeeIsMarried" type="checkbox" asp-for="IsMarried" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label id="lblEmployeePhone">Phone</label>
+            </td>
+            <td>
+                <input id="tbEmployeePhone" type="text" asp-for="Phone" value="@Model.Phone" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label id="lblEmployeeSalary">Salary</label>
+            </td>
+            <td>
+                <input id="tbEmployeeSalary" type="text" asp-for="Salary" value="@Model.Salary" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary">Redeem</button>
+            </td>
+        </tr>
+    </table>
+</form>

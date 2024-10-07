@@ -8,8 +8,11 @@
 @using ASPTableEditor.Models
 @model Employee
 
+<h1>Edit</h1>
+
+
 <form method="post" action="/Home/Index">
-    <button type="submit" class="btn btn-primary">Employees</button>
+    <button type="submit" class="btn btn-primary">Home</button>
 </form>
 
 <form method="post" asp-action="EmployeeItemEdit" asp-route-id="@Model.Id">

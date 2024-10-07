@@ -20,6 +20,7 @@ namespace ASPTableEditor.Controllers
             List<Employee> employees = new DatabaseContext(optionsBuilder.Options).Employees.ToList();
             return View(employees);
         }
+        [HttpGet]
         public IActionResult EmployeeItemView(int id)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
@@ -86,7 +87,7 @@ namespace ASPTableEditor.Controllers
             // Redirect to the employee list view or any other relevant page
             return RedirectToAction("EmployeeListView");
         }
-
+        [HttpGet]
         public IActionResult EmployeeItemRemove(int id)
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
