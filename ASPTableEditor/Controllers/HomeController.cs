@@ -105,6 +105,37 @@ namespace ASPTableEditor.Controllers
         }
 
         [HttpPost]
+        public IActionResult EmployeeItemRemove(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(employee); // Return the view with validation errors
+            }
+
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");
+
+            using (var context = new DatabaseContext(optionsBuilder.Options))
+            {
+                // Find the existing employee record
+                var existingEmployee = context.Employees.FirstOrDefault(e => e.Id == employee.Id);
+                if (existingEmployee == null)
+                {
+                    return NotFound();
+                }
+
+                // Update the existing employee's properties
+                context.Remove(existingEmployee);
+
+                // Save changes to the database
+                context.SaveChanges();
+            }
+
+            // Redirect to the employee list view or any other relevant page
+            return RedirectToAction("EmployeeListView");
+        }
+
+        [HttpPost]
         public IActionResult ImportTable()
         {
             TempData["Message"] = "Button was clicked!";
