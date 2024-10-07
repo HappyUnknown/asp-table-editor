@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ASPTableEditor.Contexts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPTableEditor.Controllers
 {
@@ -50,15 +52,41 @@ namespace ASPTableEditor.Controllers
                     content = await reader.ReadToEndAsync();
                 }
 
-                // Return a success message with file details and content
-                return Json(new
+                // Initialize DbContextOptionsBuilder for the DatabaseContext
+                var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+                optionsBuilder.UseSqlite("Data Source=app.db");  // Use your connection string
+
+                // Create an instance of DatabaseContext
+                using (var db = new DatabaseContext(optionsBuilder.Options))
                 {
-                    message = "File uploaded successfully",
-                    fileName,
-                    fileSize,
-                    fileType,
-                    fileContent = content // Include the file content in the response
-                });
+                    db.Database.EnsureCreated();
+                    //// Example of adding a new Employee to the database
+                    //db.Employees.Add(new Models.Employee()
+                    //{
+                    //    Id = 1,
+                    //    BirthDate = DateTime.Now,
+                    //    IsMarried = false,
+                    //    Name = "Yuriy",
+                    //    Phone = "+380808080808",
+                    //    Salary = 8080
+                    //});
+
+                    // Save changes to the database
+                    await db.SaveChangesAsync();
+
+                    // Fetch the first employee to display in the response
+                    var employeeName = db.Employees.FirstOrDefault()?.Name;
+
+                    // Return a success message with file details and database content
+                    return Json(new
+                    {
+                        message = employeeName,
+                        fileName,
+                        fileSize,
+                        fileType,
+                        fileContent = content
+                    });
+                }
             }
 
             return Json(new { message = "No file uploaded" });
