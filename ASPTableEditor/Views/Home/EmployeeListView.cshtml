@@ -1,16 +1,24 @@
 ﻿@using ASPTableEditor.Models
 @model List<Employee>
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+<h2>Employee List</h2>
 
-<h1>EmployeeListView</h1>
-<ul>
-    @foreach (var e in Model)
-    {
-        <li>@e.Name</li>
-    }
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Name</td>
+                <td>
+                    <button onclick="location.href='@Url.Action("EmployeeItemView", "Home")?id=@employee.Id'" class="btn btn-primary">View</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

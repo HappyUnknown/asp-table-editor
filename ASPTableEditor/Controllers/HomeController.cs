@@ -20,6 +20,21 @@ namespace ASPTableEditor.Controllers
             List<Employee> employees = new DatabaseContext(optionsBuilder.Options).Employees.ToList();
             return View(employees);
         }
+        public IActionResult EmployeeItemView(int id)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");
+
+            var employee = new DatabaseContext(optionsBuilder.Options).Employees
+                .FirstOrDefault(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee); // Create a corresponding ViewEmployee view
+        }
 
         [HttpPost]
         public IActionResult ImportTable()

@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Computing Machine\source\repos\ASPTableEditor\ASPTableEditor
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Computing Machine/source/repos/ASPTableEditor/ASPTableEditor/Views/Home/EmployeeItemView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFbXBsb3llZUl0ZW1WaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Computing Machine/source/repos/ASPTableEditor/ASPTableEditor/Views/Home/EmployeeListView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFbXBsb3llZUxpc3RWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
