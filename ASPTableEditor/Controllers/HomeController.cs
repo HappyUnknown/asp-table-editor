@@ -67,13 +67,14 @@ namespace ASPTableEditor.Controllers
                     Phone = employee.Phone,
                     Salary = employee.Salary
                 };
+                context.Employees.Add(brandnewEmployee);
 
                 // Save changes to the database
                 context.SaveChanges();
             }
 
             // Redirect to the employee list view or any other relevant page
-            return RedirectToAction("EmployeeItemCreate");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
