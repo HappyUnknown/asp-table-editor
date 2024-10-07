@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ASPTableEditor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a99f6047b5fb6dde822aa905320f242fca46046")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+625e650396952a5b19ab96dd28486f938ba72570")]
 [assembly: System.Reflection.AssemblyProductAttribute("ASPTableEditor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ASPTableEditor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

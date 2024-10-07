@@ -12,7 +12,7 @@ namespace ASPTableEditor.Controllers
             return View();
         }
 
-        public IActionResult Employees()
+        public IActionResult EmployeeListView()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite("Data Source=app.db");  // or your connection string
