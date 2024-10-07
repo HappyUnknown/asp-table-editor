@@ -11,7 +11,7 @@
 
 @if (TempData["Message"] != null)
 {
-    <div class="alert alert-success">
-        @TempData["Message"]
-    </div>
+    <script class="alert alert-success">
+        alert('@TempData["Message"]');
+    </script>
 }
