@@ -1,4 +1,5 @@
 ﻿using ASPTableEditor.Contexts;
+using ASPTableEditor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,15 @@ namespace ASPTableEditor.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Employees()
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");  // or your connection string
+
+            List<Employee> employees = new DatabaseContext(optionsBuilder.Options).Employees.ToList();
+            return View(employees);
         }
 
         [HttpPost]
