@@ -12,6 +12,7 @@ namespace ASPTableEditor.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult EmployeeListView()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
@@ -20,6 +21,7 @@ namespace ASPTableEditor.Controllers
             List<Employee> employees = new DatabaseContext(optionsBuilder.Options).Employees.ToList();
             return View(employees);
         }
+
         [HttpGet]
         public IActionResult EmployeeItemView(int id)
         {
@@ -36,6 +38,44 @@ namespace ASPTableEditor.Controllers
 
             return View(employee); // Create a corresponding ViewEmployee view
         }
+
+        [HttpGet]
+        public IActionResult EmployeeItemCreate()
+        {
+            var newEmployee = new Employee(); // Create a new instance of the Employee model
+            return View(newEmployee); // Pass the new instance to the view
+        }
+        [HttpPost]
+        public IActionResult EmployeeItemCreate(Employee employee)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(employee); // Return the view with validation errors
+            }
+
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+            optionsBuilder.UseSqlite("Data Source=app.db");
+
+            using (var context = new DatabaseContext(optionsBuilder.Options))
+            {
+                Employee brandnewEmployee = new Employee()
+                {
+                    Id = employee.Id,
+                    Name = employee.Name,
+                    BirthDate = employee.BirthDate,
+                    IsMarried = employee.IsMarried,
+                    Phone = employee.Phone,
+                    Salary = employee.Salary
+                };
+
+                // Save changes to the database
+                context.SaveChanges();
+            }
+
+            // Redirect to the employee list view or any other relevant page
+            return RedirectToAction("EmployeeItemCreate");
+        }
+
         [HttpGet]
         public IActionResult EmployeeItemEdit(int id)
         {
@@ -87,6 +127,7 @@ namespace ASPTableEditor.Controllers
             // Redirect to the employee list view or any other relevant page
             return RedirectToAction("EmployeeListView");
         }
+
         [HttpGet]
         public IActionResult EmployeeItemRemove(int id)
         {
@@ -103,7 +144,6 @@ namespace ASPTableEditor.Controllers
 
             return View(employee); // Create a corresponding ViewEmployee view
         }
-
         [HttpPost]
         public IActionResult EmployeeItemRemove(Employee employee)
         {
@@ -124,7 +164,6 @@ namespace ASPTableEditor.Controllers
                     return NotFound();
                 }
 
-                // Update the existing employee's properties
                 context.Remove(existingEmployee);
 
                 // Save changes to the database
