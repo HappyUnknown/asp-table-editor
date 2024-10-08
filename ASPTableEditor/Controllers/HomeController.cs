@@ -221,6 +221,9 @@ namespace ASPTableEditor.Controllers
                     using (var csv = new CsvHelper.CsvReader(stream, CultureInfo.InvariantCulture))
                     {
                         var employees = csv.GetRecords<Employee>().ToList();
+                        for (int i = 0; i < employees.Count; i++)
+                            employees[i].Id = 0; // ignoring original id
+
                         Console.WriteLine($"Number of employees read from CSV: {employees.Count}");
 
                         try
