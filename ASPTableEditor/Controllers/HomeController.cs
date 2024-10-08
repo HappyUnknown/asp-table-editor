@@ -2,6 +2,7 @@
 using ASPTableEditor.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace ASPTableEditor.Controllers
@@ -205,55 +206,36 @@ namespace ASPTableEditor.Controllers
         {
             if (file != null && file.Length > 0)
             {
-                // Optionally process file properties
                 var fileName = Path.GetFileName(file.FileName);
                 var fileSize = file.Length;
                 var fileType = file.ContentType;
 
-                List<Employee> content =
-                [
-                    // Read the file content
-                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
-                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
-                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
-                    new Employee() { BirthDate = DateTime.UtcNow.Date, IsMarried = true, Name = "Patrick", Phone = "+380908087759", Salary = 100 },
-                ];
-                // Initialize DbContextOptionsBuilder for the DatabaseContext
                 var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
-                optionsBuilder.UseSqlite("Data Source=app.db");  // Use your connection string
+                optionsBuilder.UseSqlite("Data Source=app.db");
 
-                // Create an instance of DatabaseContext
                 using (var db = new DatabaseContext(optionsBuilder.Options))
                 {
                     db.Database.EnsureCreated();
-                    //// Example of adding a new Employee to the database
-                    //db.Employees.Add(new Models.Employee()
-                    //{
-                    //    Id = 1,
-                    //    BirthDate = DateTime.Now,
-                    //    IsMarried = false,
-                    //    Name = "Yuriy",
-                    //    Phone = "+380808080808",
-                    //    Salary = 8080
-                    //});
 
-                    db.Employees.AddRange(content);
-
-                    // Save changes to the database
-                    await db.SaveChangesAsync();
-
-                    // Fetch the first employee to display in the response
-                    var employeeName = db.Employees.FirstOrDefault()?.Name;
-
-                    // Return a success message with file details and database content
-                    return Json(new
+                    using (var stream = new StreamReader(file.OpenReadStream()))
+                    using (var csv = new CsvHelper.CsvReader(stream, CultureInfo.InvariantCulture))
                     {
-                        message = employeeName,
-                        fileName,
-                        fileSize,
-                        fileType,
-                        fileContent = content
-                    });
+                        var employees = csv.GetRecords<Employee>().ToList();
+                        Console.WriteLine($"Number of employees read from CSV: {employees.Count}");
+
+                        try
+                        {
+                            await db.Employees.AddRangeAsync(employees);
+                            await db.SaveChangesAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error saving to database: {ex.Message}");
+                            return Json(new { message = $"Error saving to database: {ex.InnerException}" });
+                        }
+
+                        return Ok(new { count = employees.Count });
+                    }
                 }
             }
 
