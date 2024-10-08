@@ -18,4 +18,8 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Styles\MainStyle.css" />
+  </ItemGroup>
+
 </Project>

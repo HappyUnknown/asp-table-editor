@@ -4,9 +4,13 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMvc();
+
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
+
+app.UseStaticFiles();
 
 app.UseRouting();
 app.MapControllerRoute(
