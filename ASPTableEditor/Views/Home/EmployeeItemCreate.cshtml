@@ -8,7 +8,7 @@
 @using ASPTableEditor.Models
 @model Employee
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
 
 <form method="post" action="/Home/Index">
@@ -19,50 +19,62 @@
     <table>
         <tr>
             <td>
-                <label id="lblEmployeeId">Id</label>
+                <label asp-for="Id" id="lblEmployeeId">Id</label>
             </td>
             <td>
-                <input id="tbEmployeeId" type="text" asp-for="Id" value="@Model.Id" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label id="lblEmployeeName">Name</label>
-            </td>
-            <td>
-                <input id="tbEmployeeName" type="text" asp-for="Name" value="@Model.Name" />
+                <input asp-for="Id" class="form-control" id="tbEmployeeId" type="text" asp-for="Id" value="@Model.Id" />
             </td>
         </tr>
         <tr>
             <td>
-                <label id="lblEmployeeBirthDate">BirthDate</label>
+                <label asp-for="Name" id="lblEmployeeName">Name</label>
             </td>
             <td>
-                <input id="tbEmployeeBirthDate" type="text" asp-for="BirthDate" value="@Model.BirthDate" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label id="lblEmployeeIsMarried">IsMarried</label>
+                <input asp-for="Name" class="form-control" id="tbEmployeeName" type="text" asp-for="Name" value="@Model.Name" />
             </td>
             <td>
-                <input id="tbEmployeeIsMarried" type="checkbox" asp-for="IsMarried" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td>
-                <label id="lblEmployeePhone">Phone</label>
+                <label asp-for="BirthDate" id="lblEmployeeBirthDate">BirthDate</label>
             </td>
             <td>
-                <input id="tbEmployeePhone" type="text" asp-for="Phone" value="@Model.Phone" />
+                <input asp-for="BirthDate" class="form-control" id="tbEmployeeBirthDate" type="text" asp-for="BirthDate" value="@Model.BirthDate" />
+            </td>
+            <td>
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
             </td>
         </tr>
         <tr>
             <td>
-                <label id="lblEmployeeSalary">Salary</label>
+                <label asp-for="IsMarried" id="lblEmployeeIsMarried">IsMarried</label>
+            </td>
+            <td>
+                <input asp-for="IsMarried" class="form-control" id="tbEmployeeIsMarried" type="checkbox" asp-for="IsMarried" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Phone" id="lblEmployeePhone">Phone</label>
+            </td>
+            <td>
+                <input asp-for="Phone" class="form-control" id="tbEmployeePhone" type="text" asp-for="Phone" value="@Model.Phone" />
+            </td>
+            <td>
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="Salary" class="form-control" id="lblEmployeeSalary">Salary</label>
             </td>
             <td>
                 <input id="tbEmployeeSalary" type="text" asp-for="Salary" value="@Model.Salary" />
+            </td>
+            <td>
+                <span asp-validation-for="Salary" class="text-danger"></span>
             </td>
         </tr>
         <tr>
