@@ -237,7 +237,7 @@ namespace ASPTableEditor.Controllers
                             return Json(new { message = $"Error saving to database: {ex.InnerException}" });
                         }
 
-                        return Ok(new { count = employees.Count });
+                        return Ok(new { message = "Table import success" });
                     }
                 }
             }
